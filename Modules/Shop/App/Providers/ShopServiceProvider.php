@@ -5,11 +5,13 @@ namespace Modules\Shop\App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
+use Modules\Shop\Repositories\Front\TagRepository;
 use Modules\Shop\Repositories\Front\ProductRepository;
 
-use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
 use Modules\Shop\Repositories\Front\CategoryRepository;
+use Modules\Shop\Repositories\Front\Interface\TagRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
 
 class ShopServiceProvider extends ServiceProvider
 {
@@ -129,6 +131,11 @@ class ShopServiceProvider extends ServiceProvider
     $this->app->bind(
       CategoryRepositoryInterface::class,
       CategoryRepository::class,
+    );
+
+    $this->app->bind(
+      TagRepositoryInterface::class,
+      TagRepository::class,
     );
   }
 }
