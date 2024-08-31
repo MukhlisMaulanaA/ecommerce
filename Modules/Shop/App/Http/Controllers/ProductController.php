@@ -2,17 +2,18 @@
 
 namespace Modules\Shop\App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
 
-use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
-
-use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
+use Illuminate\Http\RedirectResponse;
 
 use Modules\Shop\Repositories\Front\Interface\TagRepositoryInterface;
+
+use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -152,5 +153,18 @@ class ProductController extends Controller
     }
 
     return $sort;
+  }
+
+  // Get detail product using sku from productSlug
+  public function show($categorSlug, $productSlug)
+  {
+    // memisahkan menjadi array dan ambil index terakhir
+    $sku = Arr::last(explode('-', $productSlug));
+
+    $product = $this->productRepository->findBySKU($sku);
+
+    $this->data['product'] = $product;
+
+    return $this->loadTheme('products.show', $this->data);
   }
 }

@@ -101,4 +101,27 @@ class Product extends Model
   {
     return number_format($this->price);
   }
+
+  // cek ada diskon atau tidak
+  public function getHasSalePriceAttribute()
+  {
+    return $this->sale_price != null;
+  }
+
+  public function getSalePriceLabelAttribute()
+  {
+    return number_format($this->sale_price);
+  }
+
+  public function getDiscountPercentAttribute()
+  {
+    $discountPercent = (($this->price - $this->sale_price) / $this->price) * 100;
+
+    return number_format($discountPercent);
+  }
+
+  public function getStockStatusLabelAttribute()
+  {
+    return self::STOCK_STATUSES[$this->stock_status];
+  }
 }
