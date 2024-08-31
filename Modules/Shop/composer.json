@@ -20,7 +20,8 @@
             "Modules\\Shop\\": "",
             "Modules\\Shop\\App\\": "app/",
             "Modules\\Shop\\Database\\Factories\\": "database/factories/",
-            "Modules\\Shop\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Shop\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Shop\\Repositories\\": "repositories/"
         }
     },
     "autoload-dev": {
