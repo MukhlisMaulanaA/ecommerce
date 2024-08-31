@@ -2,7 +2,7 @@
 
 namespace Modules\Shop\Database\Factories;
 
-use Modules\Shop\Models\Attribute;
+use Modules\Shop\App\Models\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AttributeFactory extends Factory
