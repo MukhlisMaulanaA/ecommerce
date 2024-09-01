@@ -22,22 +22,31 @@
           </div>
           <div class="row">
             <div class="col-lg-8 col-md-7">
+              {{ html()->form('put', route('carts.update'))->open() }}
               <ul class="list-group list-group-flush">
                 @foreach ($cart->items as $item)
                   <li class="list-group-item py-3">
                     <div class="row align-items-center">
-                      <div class="col-6 col-md-6 col-lg-7"> 
+                      <div class="col-6 col-md-6 col-lg-7">
                         <div class="d-flex">
                           <img src="{{ asset('/img/p3.jpg') }}" alt="Ecommerce" style="height: 70px;">
                           <div class="ms-3">
-                            <a href="product.html">
+                            <a href="{{ shop_product_link($item->product) }}">
                               <h6 class="mb-0">{{ $item->product->name }}</h6>
                             </a>
                             <span>
-                              <small class="text-muted">IDR {{ $item->product->price_label }}</small>
+                              @if ($item->product->hasSalePrice)
+                                <span class="active-price text-dark">IDR {{ $item->product->sale_price_label }}</span>
+                                <span
+                                  class="text-decoration-line-through text-muted ms-1">{{ $item->product->price_label }}</span>
+                                <span><small class="discount-percent ms-2 text-danger">{{ $item->product->discount_percent }}%
+                                    Off</small></span>
+                              @else
+                                <span class="active-price text-dark">IDR {{ $item->product->price_label }}</span>
+                              @endif
                             </span>
                             <div class="mt-2 small lh-1">
-                              <a href="#!" class="text-decoration-none text-inherit">
+                              <a href="{{ route('carts.destroy', [$item->id]) }}" onclick="return confirm('Are you sure to delete?')" class="text-decoration-none text-inherit">
                                 <span class="me-1 align-text-bottom">
                                   <i class='bx bx-trash'></i>
                                 </span>
@@ -48,7 +57,8 @@
                         </div>
                       </div>
                       <div class="col-3 col-md-2 col-lg-2">
-                        <input type="number" name="qty" value="{{ $item->qty }}" class="form-control" min="1">
+                        <input type="number" name="qty[{{ $item->id }}]" value="{{ $item->qty }}" class="form-control"
+                          min="1">
                       </div>
                       <div class="col-3 text-lg-end text-start text-md-end col-md-3">
                         <span class="fw-bold">IDR {{ $item->sub_total }}</span>
@@ -58,9 +68,10 @@
                 @endforeach
               </ul>
               <div class="d-flex justify-content-between mt-4">
-                <a href="#!" class="btn btn-first">Continue Shopping</a>
-                <a href="#!" class="btn btn-second">Update Cart</a>
+                <a href="{{ route('products.index') }}" class="btn btn-first">Continue Shopping</a>
+                <button type="submit" class="btn btn-second">Update Cart</button>
               </div>
+              {{ html()->form()->close() }}
             </div>
             <div class="col-12 col-lg-4 col-md-5">
               <div class="mb-5 card mt-6">
@@ -75,31 +86,36 @@
                         <div class="me-auto">
                           <div>Item Subtotal</div>
                         </div>
-                        <span>IDR {{ $cart->base_total_price }}</span>
+                        <span>{{ $cart->base_total_price_label }}</span>
                       </li>
-
                       <!-- list group item -->
                       <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="me-auto">
-                          <div>Tax</div>
+                          <div>Discount</div>
                         </div>
-                        <span>IDR {{ $cart->tax_amount }}</span>
+                        <span>{{ $cart->discount_amount_label }}</span>
                       </li>
                       <!-- list group item -->
                       <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="me-auto">
                           <div class="fw-bold">Subtotal</div>
                         </div>
-                        <span class="fw-bold">IDR {{ $cart->base_total_price }}</span>
+                        <span class="fw-bold">{{ $cart->sub_total_price_label }}</span>
+                      </li>
+                      <!-- list group item -->
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="me-auto">
+                          <div>Tax</div>
+                        </div>
+                        <span>{{ $cart->tax_amount_label }}</span>
                       </li>
                     </ul>
                   </div>
                   <div class="d-grid mb-1 mt-4">
                     <!-- btn -->
-                    <button class="btn btn-first btn-lg d-flex justify-content-between align-items-center"
-                      type="submit">
+                    <button class="btn btn-first btn-lg d-flex justify-content-between align-items-center" type="submit">
                       Go to Checkout
-                      <span class="fw-bold">IDR {{ $cart->grand_total }}</span>
+                      <span class="fw-bold">IDR {{ $cart->grand_total_label }}</span>
                     </button>
                   </div>
                   <!-- text -->

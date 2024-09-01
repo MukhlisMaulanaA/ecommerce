@@ -5,7 +5,7 @@
     <div class="container">
       <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ ('/') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ '/' }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ url('products') }}">Products</a></li>
           <li class="breadcrumb-item active" aria-current="page">Single Product Page</li>
         </ol>
@@ -65,24 +65,29 @@
               @if ($product->hasSalePrice)
                 <span class="active-price text-dark">IDR {{ $product->sale_price_label }}</span>
                 <span class="text-decoration-line-through text-muted ms-1">{{ $product->price_label }}</span>
-                <span><small class="discount-percent ms-2 text-danger">{{ $product->discount_percent }}% Off</small></span>
-              @else 
+                <span><small class="discount-percent ms-2 text-danger">{{ $product->discount_percent }}%
+                    Off</small></span>
+              @else
                 <span class="active-price text-dark">IDR {{ $product->price_label }}</span>
               @endif
             </div>
             <hr class="my-6">
+            {{ html()->form('post', route('carts.store'))->open() }}
             <div class="product-select mt-3 row justify-content-start g-2 align-items-center">
+              @include('themes.indotoko.shared.flash')
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
               <div class="col-md-2 col-2">
                 <input type="number" name="qty" value="1" class="form-control" min="1" />
               </div>
               <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
-                <button type="button" class="btn btn-add-cart"><i class="bx bx-cart-alt"></i> Add to cart</button>
+                <button type="submit" class="btn btn-add-cart"><i class="bx bx-cart-alt"></i> Add to cart</button>
               </div>
               <div class="col-md-4 col-4">
                 <a class="btn btn-light" href="shop-wishlist.html" data-bs-toggle="tooltip" data-bs-html="true"
                   aria-label="Wishlist"><i class="bx bx-heart"></i></a>
               </div>
             </div>
+            {{ html()->form()->close() }}
             <hr class="my-6">
             <div class="product-info">
               <table class="table table-borderless mb-0">

@@ -22,6 +22,9 @@ class Cart extends Model
     'user_id',
     'expired_at',
     'base_total_price',
+    'discount_amount',
+    'tax_amount',
+    'grand_total',
   ];
 
   public function user()
@@ -39,4 +42,28 @@ class Cart extends Model
     $query->where('user_id', $user->id);
   }
 
+  public function getGrandTotalLabelAttribute()
+  {
+    return number_format($this->grand_total);
+  }
+
+  public function getDiscountAmountLabelAttribute()
+  {
+    return number_format($this->discount_amount);
+  }
+
+  public function getTaxAmountLabelAttribute()
+  {
+    return number_format($this->tax_amount);
+  }
+
+  public function getBaseTotalPriceLabelAttribute()
+  {
+    return number_format($this->base_total_price);
+  }
+
+  public function getSubTotalPriceLabelAttribute()
+  {
+    return number_format($this->base_total_price - $this->discount_amount);
+  }
 }

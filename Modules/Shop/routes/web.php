@@ -24,7 +24,11 @@ Route::get('/tag/{tagSlug}', [ProductController::class, 'tag'])->name('products.
 Route::get('/{categorySlug}/{productSlug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::middleware('auth')->group(function() {
-  Route::get('/cart', [CartController::class, 'index'])->name('carts.index');
+  Route::get('/carts', [CartController::class, 'index'])->name('carts.index');
+  Route::post('/carts', [CartController::class, 'store'])->name('carts.store');
+  Route::get('/carts/{id}/remove', [CartController::class, 'destroy'])->name('carts.destroy');
+  Route::put('/carts/', [CartController::class, 'update'])->name('carts.update');
+
 });
 
 Route::group([], function () {
