@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 use Modules\Shop\Repositories\Front\TagRepository;
-use Modules\Shop\Repositories\Front\ProductRepository;
+use Modules\Shop\Repositories\Front\CartRepository;
 
+use Modules\Shop\Repositories\Front\ProductRepository;
 use Modules\Shop\Repositories\Front\CategoryRepository;
 use Modules\Shop\Repositories\Front\Interface\TagRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\CartRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
 
@@ -136,6 +138,11 @@ class ShopServiceProvider extends ServiceProvider
     $this->app->bind(
       TagRepositoryInterface::class,
       TagRepository::class,
+    );
+
+    $this->app->bind(
+      CartRepositoryInterface::class,
+      CartRepository::class,
     );
   }
 }

@@ -6,19 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Modules\Shop\Repositories\Front\Interface\CartRepositoryInterface;
 
 class CartController extends Controller
 {
-  public function __construct()
+  protected $cartRepository;
+  
+  public function __construct(CartRepositoryInterface $cartRepository)
   {
-    
+    $this->cartRepository = $cartRepository;
   }
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    return view('shop::index');
+    $cart = $this->cartRepository->findByUser(auth()->user());
+    $this->data['cart'] = $cart;
+    return $this->loadTheme('carts.index', $this->data);
   }
 
   /**

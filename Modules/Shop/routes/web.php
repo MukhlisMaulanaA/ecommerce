@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Shop\App\Http\Controllers\CartController;
 use Modules\Shop\App\Http\Controllers\ShopController;
 
 use Modules\Shop\App\Http\Controllers\ProductController;
@@ -21,6 +22,10 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/category/{categorySlug}', [ProductController::class, 'category'])->name('products.category');
 Route::get('/tag/{tagSlug}', [ProductController::class, 'tag'])->name('products.tag');
 Route::get('/{categorySlug}/{productSlug}', [ProductController::class, 'show'])->name('products.show');
+
+Route::middleware('auth')->group(function() {
+  Route::get('/cart', [CartController::class, 'index'])->name('carts.index');
+});
 
 Route::group([], function () {
     Route::resource('shop', ShopController::class)->names('shop');
