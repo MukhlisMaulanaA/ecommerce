@@ -10,15 +10,10 @@
   <link rel="stylesheet" href="css/main.css">
   <title>IndoToko: Official Site</title>
 
-  @vite([
-        'resources/sass/app.scss', 
-        'resources/js/app.js',
-        'resources/views/themes/indotoko/assets/css/main.css',
-        'resources/views/themes/indotoko/assets/plugins/jqueryui/jquery-ui.css',
-        'resources/views/themes/indotoko/assets/js/main.js',
-        'resources/views/themes/indotoko/assets/plugins/jqueryui/jquery-ui.min.js',
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        ])
+  @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/views/themes/indotoko/assets/css/main.css', 'resources/views/themes/indotoko/assets/plugins/jqueryui/jquery-ui.css', 'resources/views/themes/indotoko/assets/js/main.js', 'resources/views/themes/indotoko/assets/plugins/jqueryui/jquery-ui.min.js'])
 </head>
 
 <body>

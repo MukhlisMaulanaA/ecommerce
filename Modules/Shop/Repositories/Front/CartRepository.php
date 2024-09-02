@@ -4,6 +4,7 @@ namespace Modules\Shop\Repositories\Front;
 
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Modules\Shop\App\Models\Cart;
 use Modules\Shop\App\Models\CartItem;
 use Modules\Shop\App\Models\Product;
@@ -32,7 +33,7 @@ class CartRepository implements CartRepositoryInterface {
 
   public function addItem(Product $product, $qty): CartItem
   {
-    $cart = $this->findByUser(auth()->user());
+    $cart = $this->findByUser(Auth::user());
 
     $existItem = CartItem::where([
       'cart_id' => $cart->id,

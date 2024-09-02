@@ -38,12 +38,12 @@ class CartController extends Controller
    */
   public function create()
   {
-    return view('shop::create');
+  return view('shop::create');
   }
 
   /**
    * Store a newly created resource in storage.
-   */
+  */
   public function store(Request $request)// : RedirectResponse
   {
     $productID = $request->get('product_id');
@@ -54,6 +54,7 @@ class CartController extends Controller
     if ($product->stock_status != Product::STATUS_IN_STOCK) {
       return redirect(shop_product_link($product))->with('error', 'Tidak ada stok produk.');
     }
+
     
     if ($product->stock < $qty) {
       return redirect(shop_product_link($product))->with('error', 'Stock produk tidak mencukupi.');

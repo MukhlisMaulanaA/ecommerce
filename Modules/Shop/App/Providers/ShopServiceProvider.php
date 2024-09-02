@@ -2,16 +2,18 @@
 
 namespace Modules\Shop\App\Providers;
 
+use Modules\Shop\App\Models\Address;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 use Modules\Shop\Repositories\Front\TagRepository;
 use Modules\Shop\Repositories\Front\CartRepository;
-
+use Modules\Shop\Repositories\Front\AddressRepository;
 use Modules\Shop\Repositories\Front\ProductRepository;
 use Modules\Shop\Repositories\Front\CategoryRepository;
 use Modules\Shop\Repositories\Front\Interface\TagRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\CartRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\AddressRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
 
@@ -143,6 +145,11 @@ class ShopServiceProvider extends ServiceProvider
     $this->app->bind(
       CartRepositoryInterface::class,
       CartRepository::class,
+    );
+
+    $this->app->bind(
+      AddressRepositoryInterface::class,
+      AddressRepository::class,
     );
   }
 }

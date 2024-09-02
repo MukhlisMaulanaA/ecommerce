@@ -74,7 +74,7 @@
               {{ html()->form()->close() }}
             </div>
             <div class="col-12 col-lg-4 col-md-5">
-              <div class="mb-5 card mt-6">
+              <div class="mb-5 card mt-6 shadow">
                 <div class="card-body p-6">
                   <!-- heading -->
                   <h2 class="h5 mb-4">Summary</h2>
@@ -113,10 +113,10 @@
                   </div>
                   <div class="d-grid mb-1 mt-4">
                     <!-- btn -->
-                    <button class="btn btn-first btn-lg d-flex justify-content-between align-items-center" type="submit">
+                    <a class="btn btn-first btn-lg d-flex justify-content-between align-items-center" href="{{ route('orders.checkout') }}" type="submit">
                       Go to Checkout
                       <span class="fw-bold">IDR {{ $cart->grand_total_label }}</span>
-                    </button>
+                    </a>
                   </div>
                   <!-- text -->
                   <p>
