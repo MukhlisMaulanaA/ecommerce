@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Shop\Database\factories\CartFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cart extends Model
 {
-  use HasFactory, UuidTrait;
+  use HasFactory, UuidTrait, SoftDeletes;
 
   protected $table = 'shop_carts';
   /**
@@ -23,6 +24,8 @@ class Cart extends Model
     'expired_at',
     'base_total_price',
     'discount_amount',
+    'discount_percent',
+    'tax_percent',
     'tax_amount',
     'grand_total',
     'total_weight',

@@ -8,11 +8,13 @@ use Illuminate\Support\ServiceProvider;
 
 use Modules\Shop\Repositories\Front\TagRepository;
 use Modules\Shop\Repositories\Front\CartRepository;
+use Modules\Shop\Repositories\Front\OrderRepository;
 use Modules\Shop\Repositories\Front\AddressRepository;
 use Modules\Shop\Repositories\Front\ProductRepository;
 use Modules\Shop\Repositories\Front\CategoryRepository;
 use Modules\Shop\Repositories\Front\Interface\TagRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\CartRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\OrderRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\AddressRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
@@ -150,6 +152,11 @@ class ShopServiceProvider extends ServiceProvider
     $this->app->bind(
       AddressRepositoryInterface::class,
       AddressRepository::class,
+    );
+    
+    $this->app->bind(
+      OrderRepositoryInterface::class,
+      OrderRepository::class,
     );
   }
 }

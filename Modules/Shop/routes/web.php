@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Shop\App\Http\Controllers\CartController;
 use Modules\Shop\App\Http\Controllers\OrderController;
+use Modules\Shop\App\Http\Controllers\PaymentController;
 use Modules\Shop\App\Http\Controllers\ShopController;
 
 use Modules\Shop\App\Http\Controllers\ProductController;
@@ -23,9 +24,12 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/category/{categorySlug}', [ProductController::class, 'category'])->name('products.category');
 Route::get('/tag/{tagSlug}', [ProductController::class, 'tag'])->name('products.tag');
 
+Route::post('/payments/midtrans', [PaymentController::class, 'midtrans'])->name('payment.midtrans');
+
 
 Route::middleware('auth')->group(function() {
   Route::get('/orders/checkout', [OrderController::class, 'checkout'])->name('orders.checkout');
+  Route::post('/orders/checkout', [OrderController::class, 'store'])->name('orders.store');
   Route::post('/orders/shipping-fee', [OrderController::class, 'shippingFee'])->name('orders.shipping_fee');
   Route::post('/orders/choose-package', [OrderController::class, 'choosePackage'])->name('orders.choose-package');
 

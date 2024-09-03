@@ -16,4 +16,6 @@ interface CartRepositoryInterface
   public function removeItem($id): bool;
 
   public function updateQty($items = []): void;
+
+  public function clear(User $user): void;
 }
