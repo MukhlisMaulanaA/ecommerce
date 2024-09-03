@@ -104,7 +104,7 @@ class PaymentController extends Controller
 
     $message = 'Payment status is : ' . $transaction;
 
-    return response(['code' => 200, 'message' => $message], 200)->redirect(route('carts.index'));
+    return response(['code' => 200, 'message' => $message], 200);
   }
 
   private function initPaymentGateway()
