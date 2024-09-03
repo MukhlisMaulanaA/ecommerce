@@ -132,6 +132,7 @@ class OrderRepository implements OrderRepositoryInterface
     // Set your Merchant Server Key
     \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
     // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+    \Midtrans\Config::$clientKey = env('MIDTRANS_CLIENT_KEY');
     \Midtrans\Config::$isProduction = (bool)env('MIDTRANS_PRODUCTION', false);
     // Set sanitization on (default)
     \Midtrans\Config::$isSanitized = true;

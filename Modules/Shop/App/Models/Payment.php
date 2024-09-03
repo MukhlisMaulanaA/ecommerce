@@ -2,17 +2,17 @@
 
 namespace Modules\Shop\App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Modules\Shop\Database\factories\PaymentFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
   use HasFactory, HasUuids;
 
   protected $table = 'shop_payments';
-
 
   /**
    * The attributes that are mass assignable.
@@ -31,11 +31,11 @@ class Payment extends Model
     'rejection_note',
     'amount',
     'payloads',
-];
+  ];
 
-public const EXPIRY_DURATION = 1;
-public const EXPIRY_UNIT = 'days';
-public const PAYMENT_CHANNELS = [
+  public const EXPIRY_DURATION = 1;
+  public const EXPIRY_UNIT = 'days';
+  public const PAYMENT_CHANNELS = [
     'mandiri_clickpay',
     'cimb_clicks',
     'bca_klikbca',
@@ -49,12 +49,42 @@ public const PAYMENT_CHANNELS = [
     'gopay',
     'indomaret',
     'danamon_online',
-];
+  ];
 
-public const PAYMENT_CODE = 'PAY';
+  public const PAYMENT_CODE = 'PAY';
 
   protected static function newFactory(): PaymentFactory
   {
     return PaymentFactory::new();
+  }
+
+  public static function generateCode()
+  {
+    $dateCode = self::PAYMENT_CODE . '/' . date('Y') . '/' . date('m') . '/' . date('d') . '/';
+
+    $lastOrder = self::select([DB::raw('MAX(shop_payments.code) AS last_code')])
+      ->where('code', 'like', $dateCode . '%')
+      ->first();
+
+    $lastOrderCode = !empty($lastOrder) ? $lastOrder['last_code'] : null;
+
+    $paymentCode = $dateCode . '00001';
+    if ($lastOrderCode) {
+      $lastOrderNumber = str_replace($dateCode, '', $lastOrderCode);
+      $nextOrderNumber = sprintf('%05d', (int)$lastOrderNumber + 1);
+
+      $paymentCode = $dateCode . $nextOrderNumber;
+    }
+
+    if (self::isCodeExists($paymentCode)) {
+      return self::generateCode();
+    }
+
+    return $paymentCode;
+  }
+
+  private static function isCodeExists($paymentCode)
+  {
+    return Payment::where('code', '=', $paymentCode)->exists();
   }
 }
