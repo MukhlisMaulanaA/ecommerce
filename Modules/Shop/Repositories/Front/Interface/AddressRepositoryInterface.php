@@ -7,5 +7,7 @@ use App\Models\User;
 interface AddressRepositoryInterface
 {
   public function findByUser(User $user);
+
+  public function findByID($id);
   
 }

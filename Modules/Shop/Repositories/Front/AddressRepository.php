@@ -13,5 +13,10 @@ class AddressRepository implements AddressRepositoryInterface {
     return Address::where('user_id', $user->id)->get();
     
   }
+
+  public function findByID($id)
+  {
+    return Address::findOrFail($id);
+  }
 }
 

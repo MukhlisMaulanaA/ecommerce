@@ -82,6 +82,7 @@ class CartRepository implements CartRepositoryInterface {
     $taxAmount = 0;
     $discountAmount = 0;
     $grandTotal = 0;
+    $totalWeight = 0;
 
     if (count($cart->items) > 0) {
       foreach ($cart->items as $item) {
@@ -91,6 +92,8 @@ class CartRepository implements CartRepositoryInterface {
           $discountAmountItem = $item->product->price - $item->product->sale_price;
           $discountAmount += $item->qty * $discountAmountItem;
         }
+
+        $totalWeight += ($item->qty * $item->product->weight);
       }
     }
 
@@ -103,6 +106,7 @@ class CartRepository implements CartRepositoryInterface {
       'tax_amount' => $taxAmount,
       'discount_amount' => $discountAmount,
       'grand_total' => $grandTotal,
+      'total_weight' => $totalWeight,
     ]);
 
 
