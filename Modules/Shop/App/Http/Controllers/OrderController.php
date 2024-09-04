@@ -5,13 +5,14 @@ namespace Modules\Shop\App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Modules\Shop\App\Models\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
 use Modules\Shop\Repositories\Front\Interface\CartRepositoryInterface;
-use Modules\Shop\Repositories\Front\Interface\AddressRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\OrderRepositoryInterface;
+use Modules\Shop\Repositories\Front\Interface\AddressRepositoryInterface;
 
 class OrderController extends Controller
 {
@@ -127,7 +128,7 @@ class OrderController extends Controller
     try {
       $response = Http::withHeaders([
         'key' => env('API_ONGKIR_KEY'),
-      ])->post(env('API_ONGKIR_BASE_URL'). 'cost', [
+      ])->post(env('API_ONGKIR_BASE_URL') . 'cost', [
         'origin' => env('API_ONGKIR_ORIGIN'),
         'destination' => $address->city,
         'weight' => $cart->total_weight,
@@ -151,11 +152,19 @@ class OrderController extends Controller
               'cost' => $costDetail['cost'][0]['value'],
               'courier' => $courier,
               'address_id' => $address->id,
-            ];  
+            ];
           }
         }
       }
     }
     return $availableServices;
+  }
+
+  public function orderList()
+{
+    $userId = Auth::user()->id;
+    $orders = $this->orderRepository->getOrdersByUserId($userId);
+
+    return $this->loadTheme('orders.list', compact('orders'));
   }
 }

@@ -9,4 +9,6 @@ use Modules\Shop\App\Models\Address;
 
 interface OrderRepositoryInterface {
   public function create(User $user, Cart $cart, Address $address, $shipping = []): Order;
+
+  public function getOrdersByUserId($userId);
 }

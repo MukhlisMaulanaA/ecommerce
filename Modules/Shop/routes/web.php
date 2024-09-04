@@ -25,6 +25,7 @@ Route::get('/category/{categorySlug}', [ProductController::class, 'category'])->
 Route::get('/tag/{tagSlug}', [ProductController::class, 'tag'])->name('products.tag');
 
 Route::post('/payments/midtrans', [PaymentController::class, 'midtrans'])->name('payments.midtrans');
+Route::get('/payments/success', [PaymentController::class, 'paymentSuccess'])->name('payments.success');
 
 
 Route::middleware('auth')->group(function() {
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function() {
   Route::post('/orders/checkout', [OrderController::class, 'store'])->name('orders.store');
   Route::post('/orders/shipping-fee', [OrderController::class, 'shippingFee'])->name('orders.shipping_fee');
   Route::post('/orders/choose-package', [OrderController::class, 'choosePackage'])->name('orders.choose-package');
+  Route::get('/orders/list', [OrderController::class, 'orderList'])->name('orders.list');
 
   Route::get('/carts', [CartController::class, 'index'])->name('carts.index');
   Route::post('/carts', [CartController::class, 'store'])->name('carts.store');

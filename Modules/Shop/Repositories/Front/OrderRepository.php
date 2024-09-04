@@ -2,7 +2,6 @@
 
 namespace Modules\Shop\Repositories\Front;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Env;
 use Modules\Shop\App\Models\Address;
@@ -11,6 +10,7 @@ use Modules\Shop\App\Models\Order;
 use Modules\Shop\App\Models\OrderItem;
 use Modules\Shop\App\Models\Payment;
 use Modules\Shop\Repositories\Front\Interface\OrderRepositoryInterface;
+use App\Models\User;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -138,5 +138,10 @@ class OrderRepository implements OrderRepositoryInterface
     \Midtrans\Config::$isSanitized = true;
     // Set 3DS transaction for credit card to true
     \Midtrans\Config::$is3ds = true;
+  }
+
+  public function getOrdersByUserId($userId)
+  {
+    return Order::where('user_id', $userId)->get();
   }
 }
