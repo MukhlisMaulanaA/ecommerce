@@ -87,7 +87,7 @@
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                   <a href="{{ route('products.index') }}" class="btn btn-second">Back to Shopping Cart</a>
-                  <button type="submit" class="btn btn-first">Place Order</button>
+                  <button type="submit" id="pay-button" class="btn btn-first">Place Order</button>
                 </div>
               </form>
             </div>

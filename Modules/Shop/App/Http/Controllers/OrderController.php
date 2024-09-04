@@ -160,11 +160,11 @@ class OrderController extends Controller
     return $availableServices;
   }
 
-  public function orderList()
-{
+  public function orderList() 
+  {
     $userId = Auth::user()->id;
     $orders = $this->orderRepository->getOrdersByUserId($userId);
 
-    return $this->loadTheme('orders.list', compact('orders'));
+    return view('themes.indotoko.orders.list_orders', compact('orders'));
   }
 }

@@ -16,9 +16,9 @@
         <div class="card text-white bg-success mb-3">
           <div class="card-header">Payments Status</div>
           <div class="card-body">
-            <h5 class="card-title">{{ $dataPayment['status_payment'] }}</h5>
-            <p class="card-text">Nominal Pembayaran = Rp. {{ $dataPayment['amount'] }}</p>
-            <p class="card-text">Order ID = {{ $dataPayment['order_id'] }}</p>
+            <h5 class="card-title">{{ $dataSuccess['status'] }}</h5>
+            <p class="card-text">Nominal = Rp. {{ $dataSuccess['price'] }}</p>
+            <p class="card-text">Code = {{ $dataSuccess['code'] }}</p>
           </div>
         </div>
       </div>

@@ -11,14 +11,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\Shop\App\Models\Payment;
 use Illuminate\Http\RedirectResponse;
+use Modules\Shop\Repositories\Front\Interface\OrderRepositoryInterface;
 
 class PaymentController extends Controller
 {
+
+  protected $orderRepository;
+
+  public function __construct(OrderRepositoryInterface $orderRepository)
+  {
+    $this->orderRepository = $orderRepository;
+  }
+
   public function midtrans(Request $request)
   {
     $payload = $request->getContent();
     $notification = json_decode($payload);
-    
+
     if ((bool)env('MIDTRANS_PRODUCTION', false)) {
       $validSignatureKey = hash('sha512', $notification->order_id . $notification->status_code . $notification->gross_amount . env('MIDTRANS_SERVER_KEY'));
       if ($notification->signature_key != $validSignatureKey) {
@@ -76,15 +85,11 @@ class PaymentController extends Controller
       try {
         $order->status = Order::STATUS_CONFIRMED;
         $order->save();
-
       } catch (\Exception $e) {
         DB::rollBack();
         throw $e;
       }
       DB::commit();
-
-      // Redirect ke halaman sukses setelah transaksi berhasil
-      return redirect()->route('payments.success')->with('success', 'Transaksi berhasil. Terimakasi atas pembelian Anda.');
     }
 
     $message = 'Payment status is : ' . $transaction;
@@ -108,26 +113,30 @@ class PaymentController extends Controller
 
   public function paymentSuccess(Request $request)
   {
-    $payload = $request->getContent();
-    $notification = json_decode($payload);
+    $orderId = $request->query('order_id');
+    $order = $this->orderRepository->findByOrderId($orderId);
 
-    $statusPayment = $notification->transaction_status;
-    $priceAmount = $notification->gross_amount;
-    $orderID = $notification->order_id;
-    $statusTransaction = '';
-
-    if ($statusPayment == 'settlement') {
-      $statusTransaction = 'Berhasil';
-    } else {
-      $statusTransaction = 'Pending';
+    $payments = Payment::where('order_id', $order->id)->get();
+    foreach ($payments as $payment) {
+      $code = $payment->code;
+      $status = $payment->status;
+      $payload = $payment->payloads;
+      $price = number_format($payment->amount);
     }
+    $payloadDecode = json_decode($payload);
+    $transactionTime = $payloadDecode->transaction_time;
 
-    $dataPayment = [
-      'status_payment' => $statusTransaction,
-      'amount' => number_format($priceAmount),
-      'order_id' => $orderID,
+    $paymentStatus = '';
+    $status == 'settlement' ? $paymentStatus = 'Berhasil' : 'Pending';
+
+    $dataSuccess = [
+      'code' => $code,
+      'status' => $paymentStatus,
+      'price' => $price,
+      'transaction_time' => $transactionTime,
     ];
 
-    return $this->loadTheme('orders.success_payment', ['dataPayment' => $dataPayment]);
+    return view('themes.indotoko.orders.success_payment', compact('dataSuccess'));
+
   }
 }

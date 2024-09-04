@@ -140,6 +140,11 @@ class OrderRepository implements OrderRepositoryInterface
     \Midtrans\Config::$is3ds = true;
   }
 
+  public function findByOrderId(string $orderId)
+  {
+    return Order::where('id', $orderId)->first();
+  }
+
   public function getOrdersByUserId($userId)
   {
     return Order::where('user_id', $userId)->get();

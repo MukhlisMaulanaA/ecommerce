@@ -34,10 +34,22 @@
                 <tr>
                   <th scope="row">{{ $loop->iteration }}</th>
                   <td>{{ $order->code }}</td>
-                  <td>{{ $order->status }}</td>
-                  <td>{{ $order->base_total_price }}</td>
                   <td>
-                    <a href="{{ $order->payment_url }}" class="text-primary fs-3"><i class='bx bxs-show'></i></a>
+                    @if ($order->status == 'CONFIRMED')
+                    <span class="badge bg-success">{{ $order->status }}</span>
+                    @else
+                    <span class="badge bg-warning">{{ $order->status }}</span>
+                    @endif
+                  </td>
+                  <td>Rp. {{ number_format($order->grand_total) }}</td>
+                  <td class="">
+                    @if ($order->status == 'CONFIRMED')
+                    
+                    @else
+                    <a href="{{ $order->payment_url }}" class="btn btn-primary">
+                      Bayar
+                    </a>
+                    @endif
                   </td>
                 </tr>
               @endforeach
