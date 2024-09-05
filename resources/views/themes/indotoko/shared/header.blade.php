@@ -47,7 +47,10 @@
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><hr></li>
-                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                {{ html()->form('POST', route('logout'))->open() }}
+                @csrf
+                <li><button class="dropdown-item" type="submit">Logout</button></li>
+                {{ html()->form()->close() }}
               </ul>
             </div>
           </li>
