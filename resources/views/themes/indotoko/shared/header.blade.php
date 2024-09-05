@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-white fixed-top py-4 shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="index.html">Indo<span>Toko</span></a>
+    <a class="navbar-brand" href="/home">Al-Fakih<span>Store</span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,8 +9,7 @@
       <div class="input-group mx-auto mt-5 mt-lg-0">
         <input type="text" class="form-control" placeholder="Mau cari apa?" aria-label="Mau cari apa?"
           aria-describedby="button-addon2">
-        <button class="btn btn-outline-warning" type="button" id="button-addon2"><i
-            class="bx bx-search"></i></button>
+        <button class="btn btn-outline-warning" type="button" id="button-addon2"><i class="bx bx-search"></i></button>
       </div>
       <ul class="navbar-nav ms-auto mt-3 mt-sm-0">
         <li class="nav-item me-3">
@@ -38,12 +37,28 @@
             <li><a class="dropdown-item" href="products.html">Blog</a></li>
           </ul>
         </div>
-        <li class="nav-item mt-5 mt-lg-0 text-center">
-          <a class="nav-link btn-second me-lg-3" href="#">Login</a>
-        </li>
-        <li class="nav-item mt-3 mt-lg-0 text-center">
-          <a class="nav-link btn-first" href="#">Register</a>
-        </li>
+        @if (Auth::user())
+          <li class="nav-item mt-5 mt-lg-0 text-center">
+            <div class="btn-group">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle" height="40"
+                alt="Avatar" loading="lazy" class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" />
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><hr></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+              </ul>
+            </div>
+          </li>
+        @else
+          <li class="nav-item mt-5 mt-lg-0 text-center">
+            <a class="nav-link btn-second me-lg-3" href="{{ route('login') }}">Login</a>
+          </li>
+          <li class="nav-item mt-3 mt-lg-0 text-center">
+            <a class="nav-link btn-first" href="{{ route('register') }}">Register</a>
+          </li>
+        @endif
       </ul>
     </div>
   </div>
