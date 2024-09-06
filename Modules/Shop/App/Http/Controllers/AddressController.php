@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Modules\Shop\App\Models\Address;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\AddressUpdateRequest;
 use Modules\Shop\Repositories\Front\Interface\AddressRepositoryInterface;
 
 class AddressController extends Controller
@@ -67,20 +69,25 @@ class AddressController extends Controller
     //   'provinces' => $provinces,
     //   'cities' => $cities,
     // ];
-    // $addressID = $this->addressRepository->findByID($request->get('address_id'));
-    $addressUser = $this->addressRepository->findByUser(Auth::user());
-    $userAddress = $addressUser;
+    $addressID = $this->addressRepository->findByID($request->get('address_id'));
+    // $addressUser = $this->addressRepository->findByUser(Auth::user());
     // dd($userAddress);
-    return $this->loadTheme('addresses.edit', ['provinces' => $provinces, 'cities' => $cities, 'addresses' => $userAddress]);
+    return $this->loadTheme('addresses.edit', ['provinces' => $provinces, 'cities' => $cities, 'addresses' => $addressID]);
     
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, $id): RedirectResponse
+  public function update(AddressUpdateRequest $request): RedirectResponse
   {
-    //
+    $validated = $request->validated();
+    $addressID = $validated['id'];
+    $update = Address::where('id', $addressID)->update($validated);
+    
+    return $update 
+      ? Redirect::route('profile.index')->with('success', 'Alamat telah diperbarui')
+      : abort(500);
   }
 
   /**
@@ -108,7 +115,7 @@ class AddressController extends Controller
 
       // $address = $response['rajaongkir']['results'];
     } catch (\Exception $e) {
-      return $e;
+      return [];
     }
     $this->data = [
       'province' => $province,

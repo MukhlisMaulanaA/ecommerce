@@ -128,7 +128,7 @@ class OrderController extends Controller
     try {
       $response = Http::withHeaders([
         'key' => env('API_ONGKIR_KEY'),
-      ])->post(env('API_ONGKIR_BASE_URL_COST') . 'cost', [
+      ])->post(env('API_ONGKIR_BASE_URL') . 'cost', [
         'origin' => env('API_ONGKIR_ORIGIN'),
         'destination' => $address->city,
         'weight' => $cart->total_weight,

@@ -34,15 +34,16 @@
             <div class="col-sm-10 d-flex">
               <label for="address" class="fw-bold">{{ $loop->iteration }}. {{ $address->label }} : </label>
               <address class="ms-3">
-                <a>{{ $address->first_name }} + {{ $address->last_name }}</a>
+                <a>{{ $address->first_name }} {{ $address->last_name }}</a>
                 <br>
                 {{ $address->address1 }}
                 <br>
                 {{ $address->address2 }}
                 <br>
                 <a title="Phone">Phone: {{ $address->phone }}</a>
+                <br>
+                <a class="btn btn-primary" href="{{ route('address.edit', ['address_id' => $address->id]) }}">Edit Address</a>
               </address>
-              <a class="btn btn-primary" href="{{ route('address.edit', $address->id) }}">Edit Address</a>
             </div>
             @endforeach
           </div>

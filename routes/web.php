@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function () {
   Route::get('/profiles/edit', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profiles/edit', [ProfileController::class, 'update'])->name('profile.update');
   
-  Route::get('/addresses/edit', [AddressController::class, 'edit'])->name('address.edit');
+  Route::get('/addresses/edit/[id]', [AddressController::class, 'edit'])->name('address.edit');
+  Route::patch('/addresses/edit', [AddressController::class, 'update'])->name('address.update');
 
 });
 
