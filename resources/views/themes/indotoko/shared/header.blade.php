@@ -46,7 +46,12 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><hr></li>
+                @can('admin')
+                  <li><a class="dropdown-item" href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                @endcan
+                <li>
+                  <hr>
+                </li>
                 {{ html()->form('POST', route('logout'))->open() }}
                 @csrf
                 <li><button class="dropdown-item" type="submit">Logout</button></li>

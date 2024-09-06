@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Shop\App\Http\Controllers\CartController;
+use Modules\Shop\App\Http\Controllers\ShopController;
 use Modules\Shop\App\Http\Controllers\OrderController;
 use Modules\Shop\App\Http\Controllers\PaymentController;
-use Modules\Shop\App\Http\Controllers\ShopController;
 
 use Modules\Shop\App\Http\Controllers\ProductController;
+use Modules\Shop\App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,5 @@ Route::get('/{categorySlug}/{productSlug}', [ProductController::class, 'show'])-
 Route::group([], function () {
     Route::resource('shop', ShopController::class)->names('shop');
 });
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('admin')->name('dashboard.index');
