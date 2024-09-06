@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfileController;
+use Modules\Shop\App\Http\Controllers\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
+Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -24,7 +26,10 @@ Route::middleware('auth')->group(function () {
   Route::get('/profiles', [ProfileController::class, 'index'])->name('profile.index');
   Route::get('/profiles/edit', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profiles/edit', [ProfileController::class, 'update'])->name('profile.update');
+  
+  Route::get('/addresses/edit', [AddressController::class, 'edit'])->name('address.edit');
+
 });
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

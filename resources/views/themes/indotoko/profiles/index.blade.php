@@ -40,15 +40,14 @@
                 <br>
                 {{ $address->address2 }}
                 <br>
-
                 <a title="Phone">Phone: {{ $address->phone }}</a>
               </address>
+              <a class="btn btn-primary" href="{{ route('address.edit', $address->id) }}">Edit Address</a>
             </div>
             @endforeach
           </div>
         </div>
         <a class="btn btn-warning" href="{{ route('profile.edit') }}">Edit Profile</a>
-        <a class="btn btn-primary">Add new address</a>
       </form>
     </div>
   </section>

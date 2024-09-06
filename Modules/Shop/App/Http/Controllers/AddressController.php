@@ -2,13 +2,24 @@
 
 namespace Modules\Shop\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Modules\Shop\App\Models\Address;
+use Illuminate\Http\RedirectResponse;
+use Modules\Shop\Repositories\Front\Interface\AddressRepositoryInterface;
 
 class AddressController extends Controller
 {
+
+  protected $addressRepository;
+
+  public function __construct(AddressRepositoryInterface $addressRepository)
+  {
+    $this->addressRepository = $addressRepository;
+  }
   /**
    * Display a listing of the resource.
    */
@@ -44,9 +55,24 @@ class AddressController extends Controller
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit($id)
+  public function edit(Request $request)
   {
-    return view('shop::edit');
+    $address = $this->getAddress();
+
+    $provinces = $address['province']['rajaongkir']['results'];
+    $cities = $address['city']['rajaongkir']['results'];
+    // dd($cities);
+
+    // $this->data = [
+    //   'provinces' => $provinces,
+    //   'cities' => $cities,
+    // ];
+    // $addressID = $this->addressRepository->findByID($request->get('address_id'));
+    $addressUser = $this->addressRepository->findByUser(Auth::user());
+    $userAddress = $addressUser;
+    // dd($userAddress);
+    return $this->loadTheme('addresses.edit', ['provinces' => $provinces, 'cities' => $cities, 'addresses' => $userAddress]);
+    
   }
 
   /**
@@ -63,5 +89,32 @@ class AddressController extends Controller
   public function destroy($id)
   {
     //
+  }
+
+  private function getAddress()
+  {
+    $province = [];
+    $city = [];
+    try {
+      $responseProvince = Http::withHeaders([
+        'key' => env('API_ONGKIR_KEY'),
+      ])->get(env('API_ONGKIR_BASE_URL_PROVINCE'));
+      $province = json_decode($responseProvince->getBody(), true);
+
+      $responseCity = Http::withHeaders([
+        'key' => env('API_ONGKIR_KEY'),
+      ])->get(env('API_ONGKIR_BASE_URL_CITY'));
+      $city = json_decode($responseCity->getBody(), true);
+
+      // $address = $response['rajaongkir']['results'];
+    } catch (\Exception $e) {
+      return $e;
+    }
+    $this->data = [
+      'province' => $province,
+      'city' => $city,
+    ];
+    
+    return $this->data;
   }
 }

@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Modules\Shop\App\Http\Controllers\CartController;
 use Modules\Shop\App\Http\Controllers\ShopController;
 use Modules\Shop\App\Http\Controllers\OrderController;
-use Modules\Shop\App\Http\Controllers\PaymentController;
+use Modules\Shop\App\Http\Controllers\AddressController;
 
+use Modules\Shop\App\Http\Controllers\PaymentController;
 use Modules\Shop\App\Http\Controllers\ProductController;
 use Modules\Shop\App\Http\Controllers\DashboardController;
 
