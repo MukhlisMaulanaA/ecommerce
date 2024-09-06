@@ -44,7 +44,7 @@
                 alt="Avatar" loading="lazy" class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false" />
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 @can('admin')
                   <li><a class="dropdown-item" href="{{ route('dashboard.index') }}">Dashboard</a></li>

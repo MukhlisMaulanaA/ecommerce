@@ -18,7 +18,7 @@ var ctx1 = document.getElementById("chart-line").getContext("2d");
           backgroundColor: gradientStroke1,
           borderWidth: 3,
           fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          data: [50, 40, 300, 220, 500, 250, 350, 230, 500],
           maxBarThickness: 6
 
         }],
