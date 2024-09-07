@@ -60,6 +60,7 @@ class AddressController extends Controller
   public function edit(Request $request)
   {
     $address = $this->getAddress();
+    dd($address);
 
     $provinces = $address['province']['rajaongkir']['results'];
     $cities = $address['city']['rajaongkir']['results'];
@@ -100,27 +101,18 @@ class AddressController extends Controller
 
   private function getAddress()
   {
-    $province = [];
-    $city = [];
+    $addressAPI = [];
     try {
-      $responseProvince = Http::withHeaders([
-        'key' => env('API_ONGKIR_KEY'),
-      ])->get(env('API_ONGKIR_BASE_URL_PROVINCE'));
-      $province = json_decode($responseProvince->getBody(), true);
-
       $responseCity = Http::withHeaders([
         'key' => env('API_ONGKIR_KEY'),
-      ])->get(env('API_ONGKIR_BASE_URL_CITY'));
-      $city = json_decode($responseCity->getBody(), true);
+      ])->get(env('API_ONGKIR_BASE_URL').'city');
+      $addressAPI = json_decode($responseCity->getBody(), true);
 
       // $address = $response['rajaongkir']['results'];
     } catch (\Exception $e) {
       return [];
     }
-    $this->data = [
-      'province' => $province,
-      'city' => $city,
-    ];
+    $this->data = ['addresses' => $addressAPI];
     
     return $this->data;
   }
