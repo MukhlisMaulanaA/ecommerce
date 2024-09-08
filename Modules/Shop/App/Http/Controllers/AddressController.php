@@ -60,20 +60,14 @@ class AddressController extends Controller
   public function edit(Request $request)
   {
     $address = $this->getAddress();
-    dd($address);
+    // dd($address);
 
-    $provinces = $address['province']['rajaongkir']['results'];
-    $cities = $address['city']['rajaongkir']['results'];
-    // dd($cities);
+    $addressAPI = $address['addresses']['rajaongkir']['results'];
+    // dd($addressAPI);
 
-    // $this->data = [
-    //   'provinces' => $provinces,
-    //   'cities' => $cities,
-    // ];
     $addressID = $this->addressRepository->findByID($request->get('address_id'));
-    // $addressUser = $this->addressRepository->findByUser(Auth::user());
-    // dd($userAddress);
-    return $this->loadTheme('addresses.edit', ['provinces' => $provinces, 'cities' => $cities, 'addresses' => $addressID]);
+    
+    return $this->loadTheme('addresses.edit', ['provinces' => $addressAPI, 'cities' => $addressAPI, 'addresses' => $addressID]);
     
   }
 
