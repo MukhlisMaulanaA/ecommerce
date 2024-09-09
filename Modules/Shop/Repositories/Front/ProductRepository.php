@@ -69,5 +69,10 @@ class ProductRepository implements ProductRepositoryInterface {
     return Product::where('id', $id)->firstOrFail();
   }
 
+  public function countTotalProduct(): int
+  {
+    return Product::count();
+  }
+
 }
 

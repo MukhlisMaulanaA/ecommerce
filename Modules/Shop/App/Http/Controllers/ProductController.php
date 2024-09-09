@@ -14,6 +14,7 @@ use Modules\Shop\Repositories\Front\Interface\TagRepositoryInterface;
 
 use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interface\CategoryRepositoryInterface;
+use Modules\Shop\App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -167,4 +168,5 @@ class ProductController extends Controller
 
     return $this->loadTheme('products.show', $this->data);
   }
+
 }

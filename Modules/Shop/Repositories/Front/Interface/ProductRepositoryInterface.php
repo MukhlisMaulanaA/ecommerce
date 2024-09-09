@@ -9,4 +9,6 @@ interface ProductRepositoryInterface
   public function findBySKU($sku);
 
   public function findByID($id);
+
+  public function countTotalProduct(): int;
 }

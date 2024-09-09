@@ -6,15 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
 
 class DashboardController extends Controller
 {
+  protected $productRepository;
+
+  public function __construct(ProductRepositoryInterface $productRepository)
+  {
+    $this->productRepository = $productRepository;
+  }
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    return $this->loadTheme('dashboards.index');
+    $productsCnt = $this->productRepository->countTotalProduct();
+    return $this->loadTheme('dashboards.index', ['products' => $productsCnt]);
   }
 
   /**
