@@ -60,10 +60,8 @@ class AddressController extends Controller
   public function edit(Request $request)
   {
     $address = $this->getAddress();
-    // dd($address);
 
     $addressAPI = $address['addresses']['rajaongkir']['results'];
-    // dd($addressAPI);
 
     $addressID = $this->addressRepository->findByID($request->get('address_id'));
     
