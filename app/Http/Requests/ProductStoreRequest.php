@@ -27,9 +27,11 @@ class   ProductStoreRequest extends FormRequest
       'name' => 'required|string|max:255',
       'price' => 'required|numeric',
       'stock_status' => 'required|string',
+      'sale_price' => 'nullable|numeric|lt:price', // Jika ada, harus lebih kecil dari price
       'featured_image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
       'excerpt' => 'required|max:255',
-      'body' => 'required:max:255'
+      'body' => 'required:max:255',
+      'weight' => 'required|integer',
     ];
   }
 }

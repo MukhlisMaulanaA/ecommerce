@@ -47,7 +47,7 @@
                 <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 @can('admin')
-                  <li><a class="dropdown-item" href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                  <li><a class="dropdown-item" href="{{ route('dashboards.index') }}">Dashboard</a></li>
                 @endcan
                 <li>
                   <hr>

@@ -41,8 +41,12 @@ class DashboardProductController extends Controller
    */
   public function store(ProductStoreRequest $request): RedirectResponse
   {
+    // dd($request->all());
     $validate = $request->validated();
-
+    
+    if (!$request->has('has_discount')) {
+      $validate['sale_price'] = null; // Jika tidak ada diskon, set sale_price ke null
+    }
     // Simpan produk
     $store = $this->productRepository->storeProduct($validate);
 
