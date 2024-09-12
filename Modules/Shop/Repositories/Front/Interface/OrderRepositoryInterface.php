@@ -14,4 +14,8 @@ interface OrderRepositoryInterface {
 
   public function getOrdersByUserId($userId);
 
+  public function getTotalRevenue(): float;
+
+  public function getTotalOrder(): int;
+
 }

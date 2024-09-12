@@ -149,4 +149,15 @@ class OrderRepository implements OrderRepositoryInterface
   {
     return Order::where('user_id', $userId)->get();
   }
+
+  public function getTotalRevenue(): float
+  {
+    // Menghitung total grand_total untuk order dengan status 'CONFIRMED'
+    return Order::where('status', 'CONFIRMED')->sum('grand_total');
+  }
+
+  public function getTotalOrder(): int
+  {
+    return Order::where('status', '!=', 'CANCELED')->count();
+  }
 }

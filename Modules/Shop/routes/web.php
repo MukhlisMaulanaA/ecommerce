@@ -8,7 +8,8 @@ use Modules\Shop\App\Http\Controllers\AddressController;
 
 use Modules\Shop\App\Http\Controllers\PaymentController;
 use Modules\Shop\App\Http\Controllers\ProductController;
-use Modules\Shop\App\Http\Controllers\DashboardController;
+use Modules\Shop\App\Http\Controllers\DashboardIndexController;
+use Modules\Shop\App\Http\Controllers\DashboardProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +51,7 @@ Route::group([], function () {
     Route::resource('shop', ShopController::class)->names('shop');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('admin')->name('dashboard.index');
+Route::middleware('admin')->group(function() {
+  Route::get('/dashboard', [DashboardIndexController::class, 'index'])->name('dashboard.index');
+  // Route::post('/dashboard/create-product', [DashboardProductController::class, 'store'])->name('dashboard.product_store');
+});
