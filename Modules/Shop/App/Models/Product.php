@@ -2,10 +2,11 @@
 
 namespace Modules\Shop\App\Models;
 
+use App\Traits\UuidTrait;
+use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use App\Traits\UuidTrait;
 
 class Product extends Model
 {
@@ -57,6 +58,19 @@ class Product extends Model
     self::SIMPLE => 'Simple',
     self::CONFIGURABLE => 'Configurable',
   ];
+
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::creating(function ($product) {
+      $product->id = self::generateID();
+      $product->sku = self::generateSku();
+      $product->type = "SIMPLE";
+      $product->slug = self::generateUniqueSlug($product->name);
+      $product->status = "ACTIVE";
+    });
+  }
 
   protected static function newFactory()
   {
@@ -133,5 +147,35 @@ class Product extends Model
     }
 
     return $this->inventory->qty;
+  }
+
+  protected static function generateSku()
+  {
+    $prefix = 'MUX'; // Anda bisa mengubah prefix sesuai kebutuhan
+    $uniqueString = Str::random(3); // Generate string acak sepanjang 8 karakter
+    $timestamp = now()->format('YmdHis'); // Format: tahun bulan tanggal jam menit detik
+
+    return $prefix . $timestamp . $uniqueString;
+  }
+
+  protected static function generateID()
+  {
+    $uuid = Str::uuid();
+
+    return $uuid;
+  }
+
+  protected static function generateUniqueSlug($name)
+  {
+    $slug = Str::slug($name);
+    $count = 1;
+    $originalSlug = $slug;
+
+    while (static::where('slug', $slug)->exists()) {
+      $slug = $originalSlug . '-' . $count;
+      $count++;
+    }
+
+    return $slug;
   }
 }

@@ -2,19 +2,30 @@
 
 namespace Modules\Shop\App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProductStoreRequest;
+use Modules\Shop\Repositories\Front\Interface\ProductRepositoryInterface;
 
 class DashboardProductController extends Controller
 {
+  protected $productRepository;
+
+  public function __construct(ProductRepositoryInterface $productRepository)
+  {
+    $this->productRepository = $productRepository;
+  }
+
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    return view('shop::index');
+    // return $this->loadTheme('dashboard.products.create');
   }
 
   /**
@@ -22,15 +33,28 @@ class DashboardProductController extends Controller
    */
   public function create()
   {
-    return view('shop::create');
+    return $this->loadTheme('dashboards.products.create');
   }
 
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request): RedirectResponse
+  public function store(ProductStoreRequest $request): RedirectResponse
   {
-    //
+    $validate = $request->validated();
+
+    // Simpan produk
+    $store = $this->productRepository->storeProduct($validate);
+
+    // Set flash message
+    // session()->flash('success', 'Produk berhasil ditambahkan!');
+
+    // Redirect ke halaman daftar produk
+    // return redirect()->route('dashboards_products.create');
+
+    return $store 
+      ? Redirect::route('dashboards_products.create')->with('success', 'Berhasil menambahkan Produk!')
+      : abort(500);
   }
 
   /**
@@ -54,7 +78,7 @@ class DashboardProductController extends Controller
    */
   public function update(Request $request, $id): RedirectResponse
   {
-    //
+    
   }
 
   /**

@@ -11,4 +11,6 @@ interface ProductRepositoryInterface
   public function findByID($id);
 
   public function countTotalProduct(): int;
+
+  public function storeProduct(array $data);
 }

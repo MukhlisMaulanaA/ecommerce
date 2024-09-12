@@ -74,5 +74,17 @@ class ProductRepository implements ProductRepositoryInterface {
     return Product::count();
   }
 
+  public function storeProduct(array $data)
+  {
+    // Jika ada gambar, simpan ke storage
+    if (isset($data['featured_image'])) {
+      $imagePath = $data['featured_image']->store('products', 'public');
+      $data['featured_image'] = $imagePath;
+  }
+
+  // Simpan data produk ke database
+  return Product::create($data);
+  }
+
 }
 
