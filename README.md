@@ -29,8 +29,8 @@ Follow the steps below to set up the project on your local machine:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/your-username/online-store.git
-    cd online-store
+    git clone https://github.com/MukhlisMaulanaA/ecommerce.git
+    cd ecommerce
     ```
 
 2. **Install dependencies**:
