@@ -53,6 +53,10 @@ Route::group([], function () {
 
 Route::middleware('admin')->group(function() {
   Route::get('/dashboard', [DashboardIndexController::class, 'index'])->name('dashboards.index');
+
+  Route::get('/dashboard/products/index', [DashboardProductController::class, 'index'])->name('dashboards_products.index');
+  // Route::get('/dashboard/products/index/data', [DashboardProductController::class, 'getData'])->name('dashboards_products.data');
+
   Route::get('/dashboard/products/create', [DashboardProductController::class, 'create'])->name('dashboards_products.create');
   Route::post('/dashboard/products/', [DashboardProductController::class, 'store'])->name('dashboards_products.store');
   // Route::post('/dashboard/create-product', [DashboardProductController::class, 'store'])->name('dashboard.product_store');

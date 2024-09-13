@@ -11,10 +11,10 @@
       </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse w-auto sidebar" id="sidenav-collapse-main">
+      <ul class="navbar-nav" id="nav_accordion">
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('dashboards.index') }}">
+          <a class="nav-link" href="{{ route('dashboards.index') }}">
             <div
               class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
@@ -22,14 +22,19 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="{{ route('dashboards_products.create') }}">
+        <li class="nav-item has-submenu dropdown">
+          <a class="nav-link dropdown-toggle" href="#">
             <div
               class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Products</span>
           </a>
+          <ul class="submenu collapse mx-4">
+            <li><a href="{{ route('dashboards_products.index') }}" class="nav-link active">Product List</a></li>
+            <li><a href="" class="nav-link">Lorem</a></li>
+            <li><a href="" class="nav-link">Lorem</a></li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="./pages/billing.html">
@@ -44,7 +49,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/profile.html">
+          <a class="nav-link btn" href="./pages/profile.html">
             <div
               class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>

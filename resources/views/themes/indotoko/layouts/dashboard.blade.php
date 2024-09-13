@@ -29,30 +29,28 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Nucleo Icons -->
-  <link href="css/nucleo-icons.css" rel="stylesheet" />
-  <link href="css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 
-  @vite([
-    'resources/css/nucleo-icons.css',
-    'resources/css/nucleo-svg.css',
-    'resources/css/argon-dashboard.css?v=2.0.4',
-    'resources/sass/argon-dashboard.scss',
-    'resources/js/argon-dashboard.js?v=2.0.4',
-    'resources/js/core/popper.min.js',
-    'resources/js/core/bootstrap.min.js',
-    'resources/js/plugins/perfect-scrollbar.min.js',
-    'resources/js/plugins/smooth-scrollbar.min.js',
-    'resources/js/plugins/chartjs.min.js',
-    'resources/js/config-chart.js',
-  ])
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap5.css">
+
+  <style>
+    .sidnav li .submenu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  </style>
+
+  @vite(['resources/css/nucleo-icons.css', 'resources/css/nucleo-svg.css', 'resources/css/argon-dashboard.min.css', 'resources/sass/argon-dashboard.scss', 'resources/js/argon-dashboard.min.js', 'resources/js/core/popper.min.js', 'resources/js/core/bootstrap.min.js', 'resources/js/plugins/perfect-scrollbar.min.js', 'resources/js/plugins/smooth-scrollbar.min.js', 'resources/js/plugins/chartjs.min.js', 'resources/js/config-chart.js'])
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   @include('themes.indotoko.shared.sidebar')
   <main class="main-content position-relative border-radius-lg ">
@@ -61,11 +59,6 @@
   </main>
 
   <!--   Core JS Files   -->
-  <script src="js/core/popper.min.js"></script>
-  <script src="js/core/bootstrap.min.js"></script>
-  <script src="js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="js/plugins/chartjs.min.js"></script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -76,11 +69,75 @@
     }
   </script>
 
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.1.6/js/dataTables.bootstrap5.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap5.js"></script>
+
+  <script>
+    new DataTable('#products-table', {
+      // responsive: true,
+      scrollX: true
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.sidebar .nav-link').forEach(function(element) {
+
+        element.addEventListener('click', function(e) {
+
+          let nextEl = element.nextElementSibling;
+          let parentEl = element.parentElement;
+
+          if (nextEl) {
+            e.preventDefault();
+            let mycollapse = new bootstrap.Collapse(nextEl);
+
+            if (nextEl.classList.contains('show')) {
+              mycollapse.hide();
+            } else {
+              mycollapse.show();
+              // find other submenus with class=show
+              var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
+              // if it exists, then close all of them
+              if (opened_submenu) {
+                new bootstrap.Collapse(opened_submenu);
+              }
+            }
+          }
+        }); // addEventListener
+      }) // forEach
+    });
+    // DOMContentLoaded  end
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+      const body = document.body;
+
+      iconNavbarSidenav.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Toggle class 'g-sidenav-pinned'
+        body.classList.toggle('g-sidenav-pinned');
+
+        // Memastikan class 'g-sidenav-show' dan 'bg-gray-100' selalu ada
+        if (!body.classList.contains('g-sidenav-show')) {
+          body.classList.add('g-sidenav-show');
+        }
+        if (!body.classList.contains('bg-gray-100')) {
+          body.classList.add('bg-gray-100');
+        }
+      });
+    });
+  </script>
+
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="js/argon-dashboard.min.js?v=2.0.4"></script>
+  <script></script>
+
 </body>
 
 </html>

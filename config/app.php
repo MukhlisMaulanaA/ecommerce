@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Spatie\Html\HtmlServiceProvider::class, // spatie package
+        Yajra\DataTables\DataTablesServiceProvider::class, // yajra datatables
     ])->toArray(),
 
     /*
@@ -185,6 +186,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ])->toArray(),
 
 ];

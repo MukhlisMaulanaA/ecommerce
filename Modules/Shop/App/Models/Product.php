@@ -153,7 +153,7 @@ class Product extends Model
   {
     $prefix = 'MUX'; // Anda bisa mengubah prefix sesuai kebutuhan
     $uniqueString = Str::random(3); // Generate string acak sepanjang 8 karakter
-    $timestamp = now()->format('YmdHis'); // Format: tahun bulan tanggal jam menit detik
+    $timestamp = now()->format('Ymd'); // Format: tahun bulan tanggal jam menit detik
 
     return $prefix . $timestamp . $uniqueString;
   }
