@@ -47,7 +47,7 @@
     }
   </style>
 
-  @vite(['resources/css/nucleo-icons.css', 'resources/css/nucleo-svg.css', 'resources/css/argon-dashboard.min.css', 'resources/sass/argon-dashboard.scss', 'resources/js/argon-dashboard.min.js', 'resources/js/core/popper.min.js', 'resources/js/core/bootstrap.min.js', 'resources/js/plugins/perfect-scrollbar.min.js', 'resources/js/plugins/smooth-scrollbar.min.js', 'resources/js/plugins/chartjs.min.js', 'resources/js/config-chart.js'])
+  @vite(['resources/css/nucleo-icons.css', 'resources/css/nucleo-svg.css', 'resources/css/argon-dashboard.min.css', 'resources/js/argon-dashboard.min.js', 'resources/js/core/popper.min.js', 'resources/js/core/bootstrap.min.js', 'resources/js/plugins/perfect-scrollbar.min.js', 'resources/js/plugins/smooth-scrollbar.min.js', 'resources/js/plugins/chartjs.min.js', 'resources/js/config-chart.js'])
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -136,8 +136,6 @@
 
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script></script>
-
 </body>
 
 </html>

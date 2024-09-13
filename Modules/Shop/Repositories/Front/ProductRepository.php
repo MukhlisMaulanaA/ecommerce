@@ -17,6 +17,7 @@ class ProductRepository implements ProductRepositoryInterface {
     $tagSlug = $options['filter']['tag'] ?? null;
     $priceFilter = $options['filter']['price'] ?? null;
     $sort = $options['sort'] ?? null;
+    $status = $options['status'] ?? null;
 
     $products = Product::with(['categories', 'tags']);
 
@@ -50,6 +51,10 @@ class ProductRepository implements ProductRepositoryInterface {
 
     if ($sort) {
       $products = $products->orderBy($sort['sort'], $sort['order']);
+    }
+
+    if ($status) {
+      $products = $products->where('status', '=', 'ACTIVE');
     }
     
     if ($perPage) {

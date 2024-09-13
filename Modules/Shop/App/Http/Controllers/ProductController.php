@@ -62,6 +62,7 @@ class ProductController extends Controller
 
     $options = [
       'per_page' => $this->perPage,
+      'status' => 'ACTIVE',
       'filter' => [
         'price' => $priceFilter,
       ],

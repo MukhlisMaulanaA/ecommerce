@@ -32,7 +32,7 @@
           </a>
           <ul class="submenu collapse mx-4">
             <li><a href="{{ route('dashboards_products.index') }}" class="nav-link active">Product List</a></li>
-            <li><a href="" class="nav-link">Lorem</a></li>
+            <li><a href="{{ route('dashboards_products.create') }}" class="nav-link">Create</a></li>
             <li><a href="" class="nav-link">Lorem</a></li>
           </ul>
         </li>

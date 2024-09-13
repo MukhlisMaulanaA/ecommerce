@@ -61,7 +61,8 @@
           <label for="featured_image" class="form-label">Gambar Produk</label>
           <input type="file" class="form-control" id="featured_image" name="featured_image">
         </div>
-        <button type="submit" class="btn btn-primary">Tambah Produk</button>
+        <button type="submit" class="btn btn-primary" name="status" value="ACTIVE">Tambah Produk</button>
+        <button type="submit" class="btn btn-secondary" name="status" value="DRAFT">Simpan sebagai Draft</button>
       </form>
     </section>
   </div>

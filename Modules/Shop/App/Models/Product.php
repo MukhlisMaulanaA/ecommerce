@@ -68,7 +68,6 @@ class Product extends Model
       $product->sku = self::generateSku();
       $product->type = "SIMPLE";
       $product->slug = self::generateUniqueSlug($product->name);
-      $product->status = "ACTIVE";
     });
   }
 
